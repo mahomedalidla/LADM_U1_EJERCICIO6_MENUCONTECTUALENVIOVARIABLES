@@ -20,7 +20,7 @@ class MainActivity2 : AppCompatActivity() {
             val intentRegresar = Intent()
 
             intentRegresar.putExtra("nombre","Maho")
-            intentRegresar.putExtra("mensaje","buenos dias, hola como estas")
+            intentRegresar.putExtra("mensaje",mensaje.text.toString())
 
             setResult(0,intentRegresar)
 

@@ -6,10 +6,25 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.button
+import kotlinx.android.synthetic.main.activity_main.numero
+import kotlinx.android.synthetic.main.activity_main2.*
 
 class MainActivity : AppCompatActivity() {
+    val objRegresoValores = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){ result->
+        val intentRegresado = result.data
+        val extra = intentRegresado!!.extras!!
+
+        var nombre=extra.getString("nombre")
+        var mensaje= extra.getString("mensaje")
+
+        textviewmensaje.setText("nombre ${nombre}\nMensaje: ${mensaje}")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,7 +35,9 @@ class MainActivity : AppCompatActivity() {
             //agregando extras
             ventana2.putExtra("identificador-numeral",numero.text.toString().toInt())
 
-            startActivity(ventana2)
+            //startActivity(ventana2)
+            objRegresoValores.launch(ventana2)
+
         }
     }
 
